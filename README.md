@@ -8,3 +8,7 @@ conda create -n medbot python=3.8 -y
 ```bash
 conda activate medbot
 ```
+
+```bash
+pip install -r requirements.txt
+```
