@@ -4,7 +4,7 @@ from langchain.chains import RetrievalQA
 from langchain_pinecone import PineconeVectorStore
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.prompts import PromptTemplate
-from langchain.llms import CTransformers
+from langchain_community.llms import CTransformers
 from src.prompt import *
 import os
 from dotenv import load_dotenv
@@ -39,6 +39,15 @@ qa = RetrievalQA.from_chain_type(
 @app.route("/")
 def index():
     return render_template("chat.html")
+
+@app.route("/get", methods=['GET', 'POST'])
+def chat():
+    msg = request.form['msg']
+    input = msg
+    print(input)
+    result = qa({"query":input})
+    print("Response: ", result["result"])
+    return str(result["result"])
 
 if __name__ == "__main__":
     app.run(debug=True)
